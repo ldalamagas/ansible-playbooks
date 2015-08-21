@@ -1,0 +1,7 @@
+---
+- hosts: ssh-servers
+  vars_files:
+    - "vars/all.yml"
+  tasks:
+  - name: Plant public key
+    authorized_key: user={{ ansible_user_id }} key="{{ lookup('file', 'key_file') }}"
