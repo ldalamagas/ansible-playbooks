@@ -1,0 +1,3 @@
+Example Usage:
+ansible-playbook relax-ssh.yml -i hosts --ask-become-pass
+ansible-playbook streangthen-ssh.yml -i hosts --ask-become-pass
