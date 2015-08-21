@@ -1,0 +1,20 @@
+---
+- hosts: all
+  vars_files:
+    - "vars/all.yml"
+    - "vars/{{ ansible_os_family }}.yml"
+  tasks:
+  - name: Comment out ClientAliveInterval
+    replace: dest=/etc/ssh/sshd_config regexp="^#ClientAliveInterval" replace="ClientAliveInterval" backup=yes
+    sudo: True
+    notify:
+      - restart ssh
+  - name: Comment out ClientAliveCountMax
+    replace: dest=/etc/ssh/sshd_config regexp="^#ClientAliveCountMax" replace="ClientAliveCountMax" backup=yes
+    sudo: True
+    notify:
+      - restart ssh
+  handlers:
+    - name: restart ssh
+      service: name={{ ssh }} state=restarted
+      sudo: True
